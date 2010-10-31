@@ -1,5 +1,26 @@
 var map, po, geoJson, elements, selectedElement, datasets, currentFeatures, couchUrl = "nycapi.couchone.com", 
-currentDataset = "oem_hospitals";
+currentDataset = "dpr_parks";
+
+function findPoints(chosen){
+  var container = $(chosen).parent()[0];
+	var pathData = chosen.getAttribute("d");
+  pathData = pathData.slice(1);
+  pathData = pathData.substr(0, pathData.length - 1);
+	var points = pathData.split("L");
+  for (var i in points) {
+    var xy = points[i].split(',');
+    var vertex = document.createElementNS(po.ns.svg,"ellipse");
+    vertex.setAttribute("stroke-width", 1);
+    vertex.setAttribute("stroke", "black");
+    vertex.setAttribute("fill", "green");
+    vertex.setAttribute("cx", xy[0])
+    vertex.setAttribute("cy", xy[1]);
+    vertex.setAttribute("rx", 4);
+    vertex.setAttribute("ry", 4);
+    container.appendChild(vertex);    
+  }
+}
+
 function getDbs() {
   $.ajax({
     url: "http://" + couchUrl + "/nycapi/_design/civicapi/_view/datasets",
@@ -43,7 +64,7 @@ $(function(){
   map = po.map()
       .container(document.getElementById("map").appendChild(po.svg("svg")))
       .center({lat: 40.7143528, lon: -74.0059731})
-      .zoom(14)
+      .zoom(17)
       .zoomRange([0, 20])
       .add(po.interact());
 
@@ -82,6 +103,7 @@ $(function(){
   }
 
   function onMouseClick(e) {
+    console.log(findPoints(e.target))
   	if (selectedElement) {
   		selectedElement.setAttribute("class", "hover");
   	}
