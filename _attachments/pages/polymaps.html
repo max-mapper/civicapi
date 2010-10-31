@@ -1,0 +1,86 @@
+<html>
+  <head>
+    <script type="text/javascript" src="/script/polymaps.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.4.2.min.js"></script>
+    <script type="text/javascript" src="http://github.com/xaviershay/jquery-enumerable/raw/master/jquery.enumerable.js"></script>
+    <script type="text/javascript" src="/script/couchdb.js"></script>
+    <script type="text/javascript" src="/script/jquery.uniform.js"></script>
+    <link href="http://github.com/simplegeo/polymaps/raw/master/examples/example.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="/style/uniform.css" media="screen" rel="stylesheet" type="text/css" />
+    
+    <style type="text/css">
+    
+      .selected{fill:rgb(72,100,107) !important } 
+      .hover{fill:rgb(237,239,240) !important }
+      .layer path, circle {fill:rgb(255,246,144); stroke: salmon;}
+      .uiBackground { background: #e6e6e6; }
+      .largeText { font-size: 28px; font-weight: bold; color: #de117b; }
+      .subText { font-size: 14px; font-weight: bold; color: #FFFFFF; }
+      .mediumText { font-size:14px; color:#666666; }
+      #uniform-datasets { position: absolute; right: 0px; top: 5px;}
+      #datasets {display: none;}
+      #map {
+        background: #E6E6E6;
+      }
+
+      #copy {
+        color: #000;
+        opacity: .5;
+      }
+
+      #copy a {
+        color: #000;
+      }
+      
+      #info { 
+      	position:absolute; 
+      	top: 112px; 
+      	right: 27px; 
+      	width:300px; 
+      	height:400px; 
+      	padding:10px; 
+      	overflow:auto;
+      	display: none;
+      	}
+      	
+      #hoverLabel { 
+      	height: 25px; 
+      	padding: 5px;
+      	padding-top: 10px; 
+      	padding-left: 10px;
+      	padding-right: 10px;
+      	position: absolute;
+      	color: #999; 
+      	background: #eee; 
+      	border: 2px solid #999;
+      	border-radius: 15px;
+      	-moz-border-radius: 15px; 
+      	display: none;
+      }
+
+    </style>
+  </head>
+  <body id="map">
+    <script type="text/javascript" src="/script/civicapi.js"></script>
+    <span id="copy">
+      &copy; 2010
+      <a href="http://www.cloudmade.com/">CloudMade</a>,
+      <a href="http://www.openstreetmap.org/">OpenStreetMap</a> contributors,
+      <a href="http://creativecommons.org/licenses/by-sa/2.0/">CCBYSA</a>.
+    </span>
+    <select id="datasets">      
+    </select>
+    <div id="info" class="uiBackground">
+  		<div id="infoTitle" class="largeText">Event Name</div>
+  		<br />
+  		<div id="infoDescription" class="mediumText">Description</div>
+
+  		<br />
+
+  		<div id="infoClose">Close!</div>
+  	</div>
+  	<div id="hoverLabel">
+  		Hover Text
+  	</div>
+  </body>
+</html>
