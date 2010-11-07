@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"> 
+<html>
+  <head>
+    <title>CivicAPI Google Maps Example</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
+    <script type="text/javascript" charset="utf-8" src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key=ABQIAAAAUXDSXET8IRGdgHP9FpGw5BT-fVzUWGS_eJ2ZLPBO_6yPqTi0vhQKAzahOrduDq0xQk09GR-UP3Jgcg" type="text/javascript"></script>
+    <link rel="stylesheet" href="/style/docco.css">
+    <style type="text/css">
+      #map {
+        width: 100%;
+        height: 300px; 
+      }
+    </style>
+    <script type='text/javascript'>
+      $(function(){
+        map = new GMap2($("#map").get(0));
+        map.addMapType({type:G_AERIAL_MAP});
+        map.setMapType(G_AERIAL_MAP);
+        var portlandOR = new GLatLng(45.51330163230602, -122.67764210700989);
+        map.setCenter(portlandOR, 18);
+      
+        function createPolygons(areajson, bounds){
+          var coords = areajson.coordinates;
+          var polygons = _(coords).reduce([], function(memo_n, n) {
+            var polygonpaths = _(n).reduce(new google.maps.MVCArray(), function(memo_o, o) {
+              var polygoncords = _(o).reduce(new google.maps.MVCArray(), function(memo_p, p) {
+                var mylatlng = new google.maps.LatLng(p[1], p[0]);
+                if(bounds){
+                  bounds.extend(mylatlng);
+                }
+                memo_p.push(mylatlng);
+                return memo_p;
+              });
+              memo_o.push(polygoncords);
+              return memo_o;
+            });
+            var polygon = new google.maps.Polygon({
+              paths: polygonpaths,
+              strokeColor: "#808080",
+              strokeOpacity: 0.8,
+              strokeWeight: 2,
+              fillColor: "#C0C0C0",
+              fillOpacity: 0.35
+            });
+            memo_n.push(polygon);
+            return memo_n;
+          });
+          return polygons;
+        }
+      });
+    </script>
+  </head>
+
+  <body>        
+    <div id="map"></div>
+  </body>
+</html>

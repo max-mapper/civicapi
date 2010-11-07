@@ -1,4 +1,4 @@
-h1. Civic API - API for community data
+h1. Civic API - API for public community and government data
 
 CivicAPI is a "GeoCouch":http://www.github.com/vmx/couchdb instance populated with open government and other civic data starting with Portland, OR and NYC data through their open data initiatives, but with a goal of hosting as much open government data as users are willing to dump into it for their respective regions. Out of the box CouchDB provides a RESTy JSONP capable API to all of the data.
 

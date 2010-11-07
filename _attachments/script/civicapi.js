@@ -1,6 +1,66 @@
 var map, po, geoJson, elements, selectedElement, datasets, currentFeatures, couchUrl = "nycapi.couchone.com", 
 currentDataset = "dpr_parks";
 
+// function getTransform(O){
+//  gT="translate(0,0)"
+//  if (O.getAttribute("transform")) {
+//    gT=O.getAttribute("transform");
+//  }
+//  GT=gT.split(/[,\(\)]/)
+//  return GT
+// }
+
+function pointGrab(n) {
+  // console.log(n)
+  window.removeEventListener("mousemove", arguments.callee, false);
+  window.removeEventListener("mouseup", arguments.callee, false);
+  geoJson.container().addEventListener("mousemove", pointDrag, false);
+}
+
+function pointDrag(evt) {
+  console.log(evt)
+  evt.preventDefault();
+  geoJson.container().addEventListener("mouseup", stopPointDrag, false);
+}
+
+function stopPointDrag() {
+  
+}
+//  var TP = document.getElementById("pt" + ptn);
+//  var X = evt.clientX;
+//  var Y = evt.clientY;
+//  var pathstring="M ";
+//  var GT = getTransform(Chosen);
+//  var pX = parseInt(GT[1]);
+//  var pY = parseInt(GT[2]);
+//  X = evt.clientX -pX;
+//  Y = evt.clientY - pY;
+//  if (grid) {
+//    X = Math.floor(X / gridsize) * gridsize + gridsize / 2;
+//    Y = Math.floor(Y / gridsize) * gridsize + gridsize / 2;
+//  }
+//  UP = findPoints()
+//  UP[ptn * 2] = X
+//  UP[ptn * 2 + 1] = Y
+//  for (i in UP) {
+//    pathstring += UP[i] + " ";
+//  }
+//  pathstring += "z"
+//  Chosen.setAttribute("d",pathstring);
+//  TP.setAttribute("cx", X);
+//  TP.setAttribute("cy", Y);
+//  place.setAttribute("onmouseup", "stopPointDrag(evt," + ptn + ")");
+// }
+
+// function stopPointDrag(evt,ptn){
+//  TP=document.getElementById("pt"+ptn);
+//  TP.setAttribute("fill", "green");
+//  pathstring="M "
+//  place.setAttribute("onmousedown", "begin(evt)")
+//  place.setAttribute("onmousemove", null);
+//  place.setAttribute("onmouseup", null);
+// }
+
 function findPoints(chosen){
   var container = $(chosen).parent()[0];
 	var pathData = chosen.getAttribute("d");
@@ -17,6 +77,7 @@ function findPoints(chosen){
     vertex.setAttribute("cy", xy[1]);
     vertex.setAttribute("rx", 4);
     vertex.setAttribute("ry", 4);
+    vertex.setAttribute("onmousedown", "pointGrab('" + i + "')");
     container.appendChild(vertex);    
   }
 }
@@ -82,6 +143,9 @@ $(function(){
 
 	geoJson.container()
 		.addEventListener("mouseout", onMouseOut, false);
+
+	geoJson.container()
+		.addEventListener("mousemove", onMouseMove, false);
 
 	geoJson.container()
 		.addEventListener("click", onMouseClick, false);
