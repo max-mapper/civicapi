@@ -30,12 +30,12 @@
     "from": "images/*"
   },
   {
-    "to": "vendor/*",
-    "from": "vendor/*"
-  },
-  {
     "to": "pages/index.html",
     "from": ""
+  },
+  {
+    "to": "../../../civicapi/_design/civicapi/_view/datasets",
+    "from": "/datasets"
   },
   {
     "to": "../../../:db/_design/geojson/_spatial/points",
@@ -50,7 +50,7 @@
     "from": ":db/:id"
   },
   {
-    "to": "pages/polymaps.html",
+    "to": "pages/preview.html",
     "from": "preview"
   },
   {

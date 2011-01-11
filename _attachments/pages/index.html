@@ -1,116 +1,88 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"> 
+<!DOCTYPE html>
 <html>
   <head>
-    <title>CivicAPI Directory</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
-    <link rel="stylesheet" href="/style/docco.css">
-    <style type="text/css">
-      .colmask{
-         width: 80%;
-         left: 10%
-      }
-      .colmid{ right: 25% }
-      .colin{ right: 25% }
-      .colleft{ right: 25% }
-      .box_1{
-         left: 77%
-      }
-
-      .colmask{
-         clear: both;
-         float: left;
-         overflow: hidden;
-         position: relative;
-      }
-      .colmid{
-         float: left;
-         width: 100%;
-         position: relative;
-      }
-      .colin{
-         float: left;
-         width: 100%;
-         position: relative;
-      }
-      .colleft{
-         float: left;
-         width: 100%;
-         position: relative;
-      }
-      .box_1{
-         padding: 0px 0px 1em 0px;
-         overflow: hidden;
-         float: left;
-         position: relative;
-      }
- 
-      ul {
-        list-style: none;
-        margin-left: 0;
-        padding-left: 1em;
-        text-indent: 1em;
-      }
-
-      ul .states { 
-        background-color: #F4F4F4;
-      }
- 
-      div.state_delimiter { 
-        -webkit-box-shadow: 0 -1px 0 #ddd;
-        -moz-box-shadow: 0 -1px 0 #ddd;
-        text-align: left;
-        box-shadow: 0 -1px 0 #ddd;
-        border-top: 1px solid #fff;
-        padding: 1px 0;
-
-      }  
-    </style>
+    <title>CivicAPI</title>
+    <link media="screen" rel="stylesheet" type="text/css" href="style/uniform.css"/>
+    <link media="screen" rel="stylesheet" type="text/css" href="style/docco.css"/>
+    <link media="screen" rel="stylesheet" type="text/css" href="style/style.css"/>
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.4.2.min.js"></script> 
+    <script type="text/javascript" src="script/vendor/polymaps.js"></script>
+    <script type="text/javascript" src="script/vendor/jquery.uniform.js"></script>
+  	<script type="text/javascript" src="script/vendor/GeoJSON.js"></script>
+  	<script type="text/javascript" src="script/demos.js"></script>
   </head>
-
   <body id="index" class="home">        
     <div id='container'>
       <div id="background"></div>
       <table cellspacing=0 cellpadding=0>
       <thead>
         <tr>
-          <th class='docs'><h1>CivicAPI</h1></th>
+          <th class='docs'><h1>Civic API</h1></th>
           <th><p></p></th>
         </tr>
       </thead>
       <tbody>
         <tr id='section-1'>
           <td id='left_content' class='docs'>
-            <h3>coming soon</h3>
-            <p>in the meantime, check out the <a href='http://civicapi.com/preview'>super rough NYC data previewer</a></p>
-            <!-- <div class="colmask">
-              <h1 class="continent_header"><a name="US"></a>US</h1>
+            <h3><i>a work in progress</i></h3>
+            <div class="colmask">
+              <h1 class="continent_header">Demos</h1>
                 <div class="colmid">
                   <div class="colin">
                     <div class="colleft">
                       <div class="box_1">
-                        <div class="state_delimiter">New York</div>
-                          <ul>
-                            <li><a href="http://newyork.civicapi.com">new york city</a></li>
-                          </ul>
-                        <div class="state_delimiter">Oregon</div>
-                          <ul>
-                            <li><a href="http://portland.civicapi.com">portland</a></li>
-                          </ul>
-                        <div class="state_delimiter">Washington</div>
-                          <ul>
-                            <li><a href="http://seattle.civicapi.com">seattle</a></li>
-                          </ul>
+                        <div class="demo" id="googleMaps">Google Maps</div>
+                        <div class="demo" id="polyMaps">Polymaps</div>
+                        <div class="demo" id="openLayers">OpenLayers</div>
                       </div>
                     </div>
                   </div>
                 </div>
-            </div> -->
+            </div>
           </td>
           <td id="right_content">
-
+            <select id="datasets"></select>
+        		<div id="map"></div>
+            <div class='instructions highlight'>
+              <h3 class="title">jQuery examples:</h3>
+              <div class='subtitle'>get objects in a bounding box:</div>
+              <pre>
+              <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
+                <span class="nx">url</span><span class="o">:</span> <span class="s2">&quot;http://civicapi.com/<i>somedatabase</i>/geojson&quot;</span><span class="p">,</span>
+                <span class="nx">dataType</span><span class="o">:</span> <span class="s1">&#39;jsonp&#39;</span><span class="p">,</span>
+                <span class="nx">data</span><span class="o">:</span> <span class="p">{</span>
+                  <span class="s2">&quot;bbox&quot;</span><span class="o">:</span><span class="s2">&quot;<i>lon,lat,lon,lat</i>&quot;<span class="c1">// lower left, upper right</span></span>
+                <span class="p">},</span>
+                <span class="nx">success</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">){</span>
+                  <span class="c1">// manipulate data</span>
+                <span class="p">}</span>
+              <span class="p">});</span>
+              </pre>
+              <div class='subtitle'>get available datasets:</div>
+              <pre>
+              <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
+                <span class="nx">url</span><span class="o">:</span> <span class="s2">&quot;http://civicapi.com/datasets&quot;</span><span class="p">,</span>
+                <span class="nx">dataType</span><span class="o">:</span> <span class="s1">&#39;jsonp&#39;</span><span class="p">,</span>
+                <span class="nx">success</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">){</span>
+                  <span class="c1">// manipulate data</span>
+                <span class="p">}</span>
+              <span class="p">});</span>
+              </pre>
+              <div class='subtitle'>get object metadata:</div>
+              <pre>
+              <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
+                <span class="nx">url</span><span class="o">:</span> <span class="s2">&quot;http://civicapi.com/<i>somedatabase</i>/<i>somedocumentid</i>&quot;</span><span class="p">,</span>
+                <span class="nx">dataType</span><span class="o">:</span> <span class="s1">&#39;jsonp&#39;</span><span class="p">,</span>
+                <span class="nx">success</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">){</span>
+                  <span class="c1">// manipulate data</span>
+                <span class="p">}</span>
+              <span class="p">});</span>
+              </pre>
+            </div>
           </td>
         </tr>
         </table>
     </div>
-  </body>
+  </body>    
 </html>

@@ -2,6 +2,8 @@ h1. Civic API - API for community data
 
 CivicAPI is a "GeoCouch":http://www.github.com/vmx/couchdb instance populated with open government and other civic data starting with Portland, OR and NYC data through their open data initiatives, but with a goal of hosting as much open government data as users are willing to dump into it for their respective regions. Out of the box CouchDB provides a RESTy JSONP capable API to all of the data.
 
+**This is still a work in progress.**
+
 h2. Project Goals/Features
 
 * Create an easily consumable data resource for developers interested in utilizing civic data
@@ -10,38 +12,7 @@ h2. Project Goals/Features
 * Allow easy full replication of civic datasets through CouchDB's replication API
 * Create tools and examples for developers to use as a jumping off point for creating 'civic apps'
 
-h2. Importing geo data into GeoCouch
-
-p. GeoCouch can store, index and serve GeoJSON. There are awesome tools like @ogr2ogr@ that are capable of converting many different formats into GeoJSON.
-
-p. I wrote a tool called "shp2geocouch":http://github.com/maxogden/shp2geocouch for easily importing Shapefiles into GeoCouch. See my "blog post":http://maxogden.com/#/2010-08-14-loading-shapefiles-into-geocouch.html for a tutorial on this process.
-
-h3. Installation/Getting it Running locally
-
-This is only helpful if you want to play around with a local copy of CivicAPI. Feel free to use http://civicapi.com to host data publicly. 
-
-Super easy. First, get yourself a Couch: 
-
-"http://www.couchone.com/get":http://www.couchone.com/get
-
-Next, clone or fork action:
-
-@git clone git://github.com/maxogden/civicapi.git@
-    
-Then edit your DB URL in your .couchapprc
-    
-@cd civicapi@
-@open .couchapprc@
-    
-You should make the @"default"@ URL map to your couch including your username and password. By default, CouchDB is in admin party mode (meaning you dont need a user/pass and every one is an admin) so you can just get rid of the 'admin:admin' in the default URL or add an admin/admin user to your CouchDB instance:
-
-<pre><code>{ "env": { "default": { "db": "http://admin:admin@127.0.0.1:5984/my_couchapp_db" } } }</code></pre>
-
-Then, its easy-peasy:
-
-@couchapp push@
-    
-(The MIT License)
+h2. License
 
 Copyright (c) 2010 Max Ogden
 
