@@ -64,5 +64,10 @@
   {
     "to": "../../*",
     "from": "civicapi/*"
+  },
+  {
+    "to": "../../",
+    "from": "/scrapers",
+    "method": "POST"
   }
 ]

@@ -1,6 +1,6 @@
 h1. Civic API - API for community data
 
-CivicAPI is a "GeoCouch":http://www.github.com/vmx/couchdb instance populated with open government and other civic data starting with Portland, OR and NYC data through their open data initiatives, but with a goal of hosting as much open government data as users are willing to dump into it for their respective regions. Out of the box CouchDB provides a RESTy JSONP capable API to all of the data.
+CivicAPI is an effort to create a directory of open data APIs for local and regional government data.
 
 **This is still a work in progress.**
 
@@ -11,6 +11,7 @@ h2. Project Goals/Features
 * Modify and build upon the city's publicly released data by allowing users to edit and contribute data, and even start whole new datasets
 * Allow easy full replication of civic datasets through CouchDB's replication API
 * Create tools and examples for developers to use as a jumping off point for creating 'civic apps'
+* Integrate with ScraperWiki
 
 h2. License
 

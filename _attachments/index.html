@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  	<link href="fileuploader.css" rel="stylesheet" type="text/css">	
+  	<link href="fileuploader.css" rel="stylesheet" type="text/css">	
+  	<link href="stylesheet.css" rel="stylesheet" type="text/css">	
+  	<script type="text/javascript" src="jquery-1.4.4.min.js"></script>
+    <style>    	
+		body {font-size:13px; font-family:arial, sans-serif; width:700px; margin:100px auto;}
+    </style>	
+</head>
+<body>	
+  <div class="title">Submit a ScraperWiki Dataset</div>
+  <div class="search-box" id="search-box">
+      <form id="scraperForm">
+        <ul class="form" id="search-form">
+          <div class="instructions">Please enter your ScraperWiki scraper URL (e.g. http://scraperwiki.com/scrapers/open-food-data/)</div>
+          <div class="fields">
+            <li class="left">
+                <label for="title">
+                    URL:
+                </label>
+            </li>
+            <li class="right">
+              <input type="text" name="title" id="url" size="45" maxlength="255" class="text" />
+            </li>
+          </div>
+            <li class="right"><input type="button" name="submit" value="Submit" id="submit" class="button" /></li>
+        </ul>
+      </form>
+      <div class="clear-fix">&nbsp;</div>
+  </div>	
+    
+    <script>        
+      $(function(){
+        
+        function getShortName(scraper) {
+          // http://scraperwiki.com/scrapers/open-food-data/
+          if (scraper.substr(-1, 1) === "/") {
+            scraper = scraper.substr(0, scraper.length -1);
+          }
+          return scraper.split("/")[-1]
+        }
+        
+        function verifyScraper(scraper) {
+          var okay = false;
+          var url = "http://api.scraperwiki.com/api/1.0/datastore/getdata?limit=1&name="
+          var shortName = getShortName(scraper);
+          $.ajax({
+            url: url + shortName,
+            dataType: 'jsonp',
+            success: function(data) {
+              function upload() {
+                $.ajax({
+                  url: "/civicapi",
+                  type: "POST",
+                  contentType: 'application/json',
+                  data: JSON.stringify({
+                    "url": shortName
+                  }),
+                  success: function(response){
+                     console.log(response);
+                   }
+                })
+              }
+              
+              if ("status" in data[0]) {
+                if (data[0].status !== "Does not exist" )  {
+                  upload();
+                }
+              } else {
+                upload()
+              }
+            }
+          });
+        }
+        
+        $('#scraperForm').submit(function(e){
+          e.preventDefault();
+          var val = $('#url').val();
+          verifyScraper(val);
+        }) 
+      })
+    </script>    
+</body>
+</html>
